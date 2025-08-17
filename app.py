@@ -48,7 +48,7 @@ def get_zodiac_sign(date_str):
 # -----------------
 def generate_prediction(name, date, time, place):
     zodiac = get_zodiac_sign(date)
-    return f"✨ Hello {name}, based on your birth details, your zodiac sign is {zodiac}. " \
+    return f" Hello {name}, based on your birth details, your zodiac sign is {zodiac}. " \
            f"You may experience shifts in energy around {place}. Stay mindful and positive!"
 
 def answer_question(name, date, time, place, question):
