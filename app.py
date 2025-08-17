@@ -2,14 +2,11 @@ import gradio as gr
 from transformers import pipeline
 from datetime import datetime
 
-# -----------------
 # Load HuggingFace model (lightweight + efficient)
-# -----------------
+
 generator = pipeline("text2text-generation", model="google/flan-t5-base")
 
-# -----------------
 # Zodiac helper
-# -----------------
 def get_zodiac_sign(date_str):
     try:
         date_obj = datetime.strptime(date_str, "%Y-%m-%d")
@@ -43,9 +40,7 @@ def get_zodiac_sign(date_str):
         return "Pisces "
     return "Unknown"
 
-# -----------------
 # Functions
-# -----------------
 def generate_prediction(name, date, time, place):
     zodiac = get_zodiac_sign(date)
     return f" Hello {name}, based on your birth details, your zodiac sign is {zodiac}. " \
@@ -65,11 +60,8 @@ def answer_question(name, date, time, place, question):
     """
     result = generator(prompt, max_length=200, temperature=0.7)
     return result[0]["generated_text"]
-
-
-# -----------------
+    
 # Styled Gradio UI
-# -----------------
 with gr.Blocks(css="""
     body {background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);}
     .gradio-container {max-width: 700px !important; margin: auto;}
