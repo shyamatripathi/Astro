@@ -29,9 +29,7 @@ You have multiple ways to run the chatbot:
 ### 🔹 Option 2: Run Locally on Your System
 1. **Download the repository (ZIP)** and extract it.  
 2. Open a terminal in the project folder.  
-3. Install dependencies:  
-   ```bash
-   pip install -r requirements.txt
+3. Install dependencies from requirements.txt
 4. Run the app: python app.py
 ### 🔹 Option 3:Already live on https://huggingface.co/spaces/shyatri/astro 
 1.click on the link and use it.
