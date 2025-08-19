@@ -1,12 +1,8 @@
 import gradio as gr
-from transformers import pipeline
 from datetime import datetime
 
-# Load HuggingFace model (lightweight + efficient)
+#astrology logic/rulebased
 
-generator = pipeline("text2text-generation", model="google/flan-t5-base")
-
-# Zodiac helper
 def get_zodiac_sign(date_str):
     try:
         date_obj = datetime.strptime(date_str, "%Y-%m-%d")
@@ -15,85 +11,71 @@ def get_zodiac_sign(date_str):
         return "Unknown"
 
     if (month == 3 and day >= 21) or (month == 4 and day <= 19):
-        return "Aries "
+        return "Aries ♈"
     elif (month == 4 and day >= 20) or (month == 5 and day <= 20):
-        return "Taurus "
+        return "Taurus ♉"
     elif (month == 5 and day >= 21) or (month == 6 and day <= 20):
-        return "Gemini "
+        return "Gemini ♊"
     elif (month == 6 and day >= 21) or (month == 7 and day <= 22):
-        return "Cancer "
+        return "Cancer ♋"
     elif (month == 7 and day >= 23) or (month == 8 and day <= 22):
-        return "Leo "
+        return "Leo ♌"
     elif (month == 8 and day >= 23) or (month == 9 and day <= 22):
-        return "Virgo "
+        return "Virgo ♍"
     elif (month == 9 and day >= 23) or (month == 10 and day <= 22):
-        return "Libra "
+        return "Libra ♎"
     elif (month == 10 and day >= 23) or (month == 11 and day <= 21):
-        return "Scorpio "
+        return "Scorpio ♏"
     elif (month == 11 and day >= 22) or (month == 12 and day <= 21):
-        return "Sagittarius "
+        return "Sagittarius ♐"
     elif (month == 12 and day >= 22) or (month == 1 and day <= 19):
-        return "Capricorn "
+        return "Capricorn ♑"
     elif (month == 1 and day >= 20) or (month == 2 and day <= 18):
-        return "Aquarius "
+        return "Aquarius ♒"
     elif (month == 2 and day >= 19) or (month == 3 and day <= 20):
-        return "Pisces "
+        return "Pisces ♓"
     return "Unknown"
 
-# Functions
 def generate_prediction(name, date, time, place):
     zodiac = get_zodiac_sign(date)
-    return f" Hello {name}, based on your birth details, your zodiac sign is {zodiac}. " \
-           f"You may experience shifts in energy around {place}. Stay mindful and positive!"
+    return f"✨ Hello {name}, based on your birth details, your zodiac sign is {zodiac}. " \
+           f"You are likely to find new opportunities around {place}. Trust your instincts and stay positive!"
 
 def answer_question(name, date, time, place, question):
+    q = question.lower()
     zodiac = get_zodiac_sign(date)
-    prompt = f"""
-    You are a knowledgeable astrologer. 
-    Person's name: {name}
-    Birth place: {place}
-    Zodiac sign: {zodiac}.
-    The person asks: "{question}".
-    Give a thoughtful astrology-based response that sounds mystical, 
-    but stays positive and helpful. Do not repeat the question. 
-    Avoid saying the person will literally become an astrologer.
-    """
-    result = generator(prompt, max_length=200, temperature=0.7)
-    return result[0]["generated_text"]
-    
-# Styled Gradio UI
-with gr.Blocks(css="""
-    body {background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);}
-    .gradio-container {max-width: 700px !important; margin: auto;}
-    .card {background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);}
-    h1 {text-align: center; color: #fff; font-size: 2em; margin-bottom: 10px;}
-    h2 {color: #333;}
-""") as demo:
 
-    gr.Markdown("<h1>AI Astrologer </h1>")
-    gr.Markdown("<p style='text-align:center; color:white;'>Enter your details and ask the stars for guidance </p>")
+    if "career" in q:
+        return f"🌟 {name}, as a {zodiac}, your career stars indicate steady growth. Hard work will pay off soon!"
+    elif "love" in q or "relationship" in q:
+        return f"💖 {name}, love energies are strong for {zodiac}. Be open to new connections."
+    elif "health" in q:
+        return f"💪 {name}, {zodiac} energy suggests you focus on balance. Prioritize rest and self-care."
+    else:
+        return f"🔮 The universe whispers patience, {name}. As a {zodiac}, trust the timing of your journey."
 
-    with gr.Column(elem_classes="card"):
-        with gr.Row():
-            name = gr.Textbox(label="Name")
-            place = gr.Textbox(label="Birth Place")
-        with gr.Row():
-            date = gr.Textbox(label="Birth Date (YYYY-MM-DD)")
-            time = gr.Textbox(label="Birth Time (HH:MM)", placeholder="Optional")
+# Gradio UI
+with gr.Blocks(theme="default") as demo:
+    gr.Markdown("## ✨ AI Astrologer 🔮")
+    gr.Markdown("Enter your birth details and receive astrology-based insights.")
 
-        prediction_btn = gr.Button(" Get Prediction", variant="primary")
-        prediction_output = gr.Textbox(label="Your Astrology Prediction")
+    with gr.Row():
+        name = gr.Textbox(label="Name")
+        date = gr.Textbox(label="Birth Date (YYYY-MM-DD)")
+        time = gr.Textbox(label="Birth Time (HH:MM)", placeholder="Optional")
+        place = gr.Textbox(label="Birth Place")
 
-    with gr.Column(elem_classes="card"):
-        gr.Markdown("### Ask the Stars")
-        question = gr.Textbox(label="What do you want to ask?", placeholder="e.g. How is my career looking?")
-        ask_btn = gr.Button("Ask Astrologer", variant="secondary")
-        answer_output = gr.Textbox(label="Astrology Answer")
+    prediction_btn = gr.Button("Get Prediction")
+    prediction_output = gr.Textbox(label="Prediction")
 
-    # Button actions
     prediction_btn.click(fn=generate_prediction,
                          inputs=[name, date, time, place],
                          outputs=prediction_output)
+
+    gr.Markdown("### ❓ Ask a Free Question")
+    question = gr.Textbox(label="Your Question")
+    answer_output = gr.Textbox(label="Astrology Answer")
+    ask_btn = gr.Button("Ask the Astrologer")
 
     ask_btn.click(fn=answer_question,
                   inputs=[name, date, time, place, question],
