@@ -1,13 +1,13 @@
 # Astrology Chatbot  
 
-A simple **rule-based astrology chatbot** built using **Gradio**.  
+A simple **rule based astrology chatbot** built using **Gradio**.  
 Unlike unreliable generative AI models, this chatbot uses deterministic logic to provide **clear, consistent, and hallucination-free astrology-based responses**.  
 
 ---
 
 ## Features
 - Rule-based astrology predictions (no hallucinations)  
-- Lightweight and fast — no large model dependencies  
+- Lightweight and fast no large model dependencies  
 - Deployable on **Hugging Face Spaces**  
 - Easy to run locally  
 
@@ -20,7 +20,7 @@ You have multiple ways to run the chatbot:
 ### 🔹 Option 1: Run on Kaggle
 1. Go to [Kaggle](https://www.kaggle.com/).  
 2. Create a new **Notebook**.  
-3. Copy–paste the contents of `app.py` into a cell.  
+3. Copy paste the contents of `app.py` into a cell.  
 4. Run the notebook.  
 5. In the output section, you’ll see a **Gradio link** — open it to access the chatbot locally.  
 
