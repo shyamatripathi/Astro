@@ -1,19 +1,19 @@
-# 🔮 Astrology Chatbot  
+# Astrology Chatbot  
 
 A simple **rule-based astrology chatbot** built using **Gradio**.  
 Unlike unreliable generative AI models, this chatbot uses deterministic logic to provide **clear, consistent, and hallucination-free astrology-based responses**.  
 
 ---
 
-## ✨ Features
-- ✅ Rule-based astrology predictions (no hallucinations)  
-- ⚡ Lightweight and fast — no large model dependencies  
-- 🌐 Deployable on **Hugging Face Spaces**  
-- 💻 Easy to run locally  
+## Features
+- Rule-based astrology predictions (no hallucinations)  
+- Lightweight and fast — no large model dependencies  
+- Deployable on **Hugging Face Spaces**  
+- Easy to run locally  
 
 ---
 
-## ⚙️ Setup (Local Machine)
+## Setup (Local Machine)
 
 You have multiple ways to run the chatbot:
 
@@ -33,3 +33,5 @@ You have multiple ways to run the chatbot:
    ```bash
    pip install -r requirements.txt
 4. Run the app: python app.py
+### 🔹 Option 3:Already live on https://huggingface.co/spaces/shyatri/astro 
+1.click on the link and use it.
